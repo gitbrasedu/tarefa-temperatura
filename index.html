@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aula</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div id="panel">
+        <h1>Conversor de temperaturas</h1>
+
+        <div id="form">
+            <div id="temperature_input">
+                Digite a temperatura:
+                <input type="text" id="ftempinput" name="ftempinput" onInput="updateTemperature();">
+            </div>
+            <div id="measurement_selector">
+                Qual medida?
+                <select name="measurements" id="measurements" onChange="onMeasurementChange();">
+                    <option value="celsius">Celsius</option>
+                    <option value="farenheit">Farenheit</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>                
+            </div>
+
+        </div>
+
+        
+        
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#panel {
+    margin-top: 10vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#temperature_input {
+    padding-top: 2vh;
+}
+
+#measurement_selector {
+    padding-top: 1vh;
+}
+
