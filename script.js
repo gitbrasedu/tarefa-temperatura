@@ -31,12 +31,12 @@ function celsiusToFarenheit(c) {
 }
 
 const ConversionsTo = {
-    "kelvin,celsius": (x) => { return kelvinToCelsius(x) },
-    "kelvin,farenheit": (x) => { return celsiusToFarenheit(kelvinToCelsius(x)) },
-    "celsius,kelvin": (x) => { return celsiusToKelvin(x) },
-    "celsius,farenheit": (x) => { return celsiusToFarenheit(x) },
-    "farenheit,kelvin": (x) => { return celsiusToKelvin(farenheitToCelsius(x)) },
-    "farenheit,celsius": (x) => { return farenheitToCelsius(x) }
+    "kelvin,celsius": (x) => kelvinToCelsius(x),
+    "kelvin,farenheit": (x) => celsiusToFarenheit(kelvinToCelsius(x)),
+    "celsius,kelvin": (x) => celsiusToKelvin(x),
+    "celsius,farenheit": (x) => celsiusToFarenheit(x),
+    "farenheit,kelvin": (x) => celsiusToKelvin(farenheitToCelsius(x)),
+    "farenheit,celsius": (x) => farenheitToCelsius(x)
 };
 
 function updateTemperature() {
@@ -46,22 +46,37 @@ function updateTemperature() {
         return;
     }
 
-    for (let measurement in Measurements) {
-        measurement = measurement.toLowerCase();
-        if (measurement === selectedMeasurement) {
+    let tempCelsius = NaN; // Armazena a temperatura em celsius para ser usada no fundo.
+    let result = "";
+    for (const measurementKey in Measurements) {
+        let measurementName = measurementKey.toLowerCase();
+        if (measurementName === selectedMeasurement) {
             continue;
-        } 
+        }
 
-        console.log(measurement)
-        console.log(ConversionsTo[selectedMeasurement + "," + measurement]())
+        let resultingTemperature = Math.round(ConversionsTo[selectedMeasurement + "," + measurementName](v));
+        result += "Temperatura(" + measurementName + "): " + resultingTemperature + "<br>";
+
+        if (measurementName === "celsius") {
+            tempCelsius = resultingTemperature;
+        }
+
+        if (selectedMeasurement === "celsius") {
+            tempCelsius = v;
+        }
     }
 
-    console.log("-")
+    let heat = Math.round(Math.min(tempCelsius / 100.0 * 0xcc, 0xcc));
+    let cold = Math.round(Math.min((100.0 - tempCelsius) / 100.0 * 0xcc, 0xcc));
+    console.log(tempCelsius)
+    console.log("#" + heat.toString(16) + "00" + cold.toString(16) + "cc")
+    document.querySelector("body").style.backgroundColor = "#" + heat.toString(16) + "00" + cold.toString(16) + "cc";
 }
 
 function onMeasurementChange() {
-    // Clears the temperature form because the measurement unit changed.
-    document.getElementById(TEMPERATURE_FORM_ID).value = "";
+    // Reseta o valor do formulário.
+    document.getElementById(TEMPERATURE_FORM_ID).value = "0";
 
     selectedMeasurement = document.getElementById(MEASUREMENT_SELECT_ID).value;
+    updateTemperature();
 }

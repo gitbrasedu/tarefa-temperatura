@@ -3,6 +3,14 @@
     padding: 0;
 }
 
+body {
+    background-color: #cc0000cc;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
 #panel {
     margin-top: 10vh;
     display: flex;
@@ -20,3 +28,22 @@
     padding-top: 1vh;
 }
 
+#output_box {
+    padding-bottom: 200px;
+    padding-right: 200px;
+}
+
+#temperature_container {
+    background-color: #2e3440;
+    color: #eceff4;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+p {
+    word-break: break-all;
+    white-space: normal;
+}

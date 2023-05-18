@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="panel">
-        <h1>Conversor de temperaturas</h1>
+        <h1>Conversor de Temperaturas</h1>
 
         <div id="form">
             <div id="temperature_input">
@@ -23,12 +23,25 @@
                     <option value="kelvin">Kelvin</option>
                 </select>                
             </div>
+            <div id="temperature_output">
+                <h2>Resultado</h2>
+                
+                <div id="temperature_container">
+                    <p>
+                        <b id="uwu"></b>
+                    </p>
+                </div>
+                
+            </div>
 
         </div>
 
         
         
     </div>
-    
+    <script>
+        document.getElementById(TEMPERATURE_FORM_ID).value = "0";
+        updateTemperature();
+    </script>
 </body>
 </html>
