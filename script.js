@@ -66,11 +66,35 @@ function updateTemperature() {
         }
     }
 
-    let heat = Math.round(Math.min(tempCelsius / 100.0 * 0xcc, 0xcc));
-    let cold = Math.round(Math.min((100.0 - tempCelsius) / 100.0 * 0xcc, 0xcc));
-    console.log(tempCelsius)
-    console.log("#" + heat.toString(16) + "00" + cold.toString(16) + "cc")
-    document.querySelector("body").style.backgroundColor = "#" + heat.toString(16) + "00" + cold.toString(16) + "cc";
+    document.getElementById("uwu").innerHTML = result;
+
+    // let heat = Math.round(Math.min(tempCelsius / 100.0 * 0xcc, 0xcc));
+    // let cold = Math.round(Math.min((100.0 - tempCelsius) / 100.0 * 0xcc, 0xcc));
+    const FULL_BLUE = 0.0;
+    const FULL_RED = 100.0;
+    let hotness = tempCelsius >= FULL_RED ? 1 : 1.0 - Math.abs(tempCelsius - FULL_RED) / 100.0;
+    let coldness = tempCelsius <= FULL_BLUE ? 1 : 1.0 - Math.abs(tempCelsius - FULL_BLUE) / 100.0;
+    
+    if (hotness === 1) {
+        coldness = 0;
+    }
+
+    if (coldness === 1) {
+        hotness = 0;
+    }
+
+    
+    let red = (Math.floor(0xff * hotness) << 16);
+    let blue = Math.floor(0xff * coldness);
+    let colorCode = "#" + (red | blue).toString(16);
+    
+    console.log(hotness);
+    console.log(coldness);
+    console.log(colorCode);
+
+    document.querySelector("body").style.backgroundColor = colorCode;
+    // console.log("#" + hotness.toString(16) + "00" + cold.toString(16) + "cc")
+    // document.querySelector("body").style.backgroundColor = "#" + heatDist.toString(16) + "00" + cold.toString(16) + "cc";
 }
 
 function onMeasurementChange() {
